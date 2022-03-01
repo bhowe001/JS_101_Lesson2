@@ -1,13 +1,12 @@
 
 // Welcome user to the loan calculator.
-// Ask the user for the monthly payment.
 // Ask the user for the loan amount.
 // Ask the user for the interest rate.
 // Ask the user for the loan duration in months.
 // Perform the calculation based on the four inputs.
-// Print the result to the terminal.
+// Print the monthly payment amount to the terminal.
 // Ask the user if they would like to calculate another loan.
-// Repeat or terminate the program with message.
+// Repeat or terminate the program with a message.
 
 const readline = require('readline-sync');
 
