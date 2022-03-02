@@ -6,6 +6,7 @@
 
 const readline = require('readline-sync');
 
+// eslint-disable-next-line no-unused-vars
 const MESSAGES = require('./calculator_messages.json');
 
 function prompt(message) {
@@ -45,11 +46,6 @@ while (true) {
     operation = readline.question();
   }
 
-  prompt('Would you like to perform another operation? (y/n)');
-  let answer = readline.question();
-
-  if (answer[0].toLowerCase() !== 'y') break;
-
 
   let output;
   switch (operation) {
@@ -63,8 +59,19 @@ while (true) {
       output = Number(number1) * Number(number2);
       break;
     case '4':
+      // eslint-disable-next-line no-unused-vars
       output = Number(number1) / Number(number2);
       break;
   }
+  console.log(`The result is: ${output}`);
+
+  prompt('Would you like to perform another calculation? (y/n)');
+  let answer = readline.question();
+
+  if (answer[0].toLowerCase() === 'y') {
+    continue;
+  } else {
+    console.log("Thank you for using The Calculator!");
+    break;
+  }
 }
-console.log(`The result is: ${output}`);
