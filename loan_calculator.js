@@ -65,7 +65,7 @@ while (true) {
 
   if (answer[0].toLowerCase() === 'y') {
     continue;
-  } else {
+  } else if (answer[0].toLowerCase() === 'n') {
     console.log("Thank you for using the Loan Calculator!");
     break;
   }
