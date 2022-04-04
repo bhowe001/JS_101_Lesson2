@@ -1,13 +1,18 @@
 const readline = require('readline-sync');
 const VALID_CHOICES = ['rock', 'paper', 'scissors', 'lizard', 'spock'];
 
-//const VALID_RESPONSES = ['yes', 'y', 'no', 'n'];
 function prompt(message) {
   console.log(`=> ${message}`);
 }
 
 let userScore = 0;
 let computerScore = 0;
+
+function introStatementsAndRules (choice) {
+  console.log("This is Dr. Sheldon Cooper. I challenge you to a duel of greatness.");
+  prompt("Would you like to know the rules of the game?");
+  return (choice === 'y' || choice === 'yes');
+}
 
 function playerWins(choice, computerChoice) {
   prompt(`You chose ${choice}, computer chose ${computerChoice}`);
@@ -37,10 +42,8 @@ function displayWinner(choice, computerChoice) {
 
 const winningScore = 3;
 
-prompt('Welcome!');
-
-while (true) {
-
+console.clear();
+const userChoice = function() {
   prompt(`Choose one (${VALID_CHOICES.join(', ')})`);
   let choice = readline.question();
 
@@ -48,6 +51,9 @@ while (true) {
     prompt("That's not a valid choice");
     choice = readline.question();
   }
+};
+
+while (true) {
 
   let randomIndex = Math.floor(Math.random() * VALID_CHOICES.length);
   let computerChoice = VALID_CHOICES[randomIndex];
