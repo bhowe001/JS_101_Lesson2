@@ -60,17 +60,20 @@
 // Return the result.
 
 // CURRENT ISSUES:
-// Initial input allows for inputs that are not numbers
-// Issue is within the invalidNumber function.
-// The issue is specific to the .trim() method within invalidNumber function.
-// The .trim() method is throwing a TypeError because .trim() is for strings.
-// See tip_calculator.js, loan_calculator.js, or rps_lizard_spock.js
-// to see the invalidNumber function working properly in those contexts.
-
+// Invalid inputs during the chooseOperation and startOver questions
+// restart the program and loop back to the first prompt.
+// Invalid inputs return "That's not a valid choice."
+// Entering a correct or invalid input then restarts the program automatically
+// The program says "Please enter an integer greater than 0."
+// Program should loop at the chooseOperation and startOver questions
+// until a valid input is entered.
+// The issue is specific to the else clause within the startOver if statement
 
 // CODE:
 
 const READLINE = require('readline-sync');
+// const OPERATION_CHOICES = ['s', 'sum', 'p', 'product'];
+//const CONTINUE_CHOICES = ['s', 'sum', 'p', 'product'];
 
 function computeSum(targetNum) {
   let total = 0;
@@ -94,6 +97,12 @@ function prompt(message) {
   console.log(`${message}`);
 }
 
+// function invalidNumber(number) {
+//   return number.trim() === '' ||
+//          Number(number) <= 0   ||
+//          Number.isNaN(Number(number));
+// }
+
 console.clear();
 
 prompt("Welcome to the Sum or Product Calculator!");
@@ -101,7 +110,12 @@ prompt("Welcome to the Sum or Product Calculator!");
 while (true) {
 
   prompt("Please enter an integer greater than 0:");
-  let integer = parseInt(READLINE.question(), 10);
+  let integer = READLINE.question();
+
+  // while (invalidNumber(integer)) {
+  //   prompt("Please enter a valid number.");
+  //   integer = READLINE.question();
+  // }
 
   prompt(`Would you like to calculate the sum or product of the numbers between 1 and ${integer}?`);
   prompt("Enter 's', or 'sum' to calculate the sum; 'p', or 'product' to calculate the product");
@@ -109,13 +123,20 @@ while (true) {
 
   if (chooseOperation.toLowerCase() === 's' || chooseOperation.toLowerCase() === 'sum') {
     let sum = computeSum(integer);
-    console.log(`The sum of the integers between 1 and ${integer} is ${sum}.`);
+    console.log(`\nThe sum of the integers between 1 and ${integer} is ${sum}.\n`);
   } else if (chooseOperation.toLowerCase() === 'p' || chooseOperation.toLowerCase() === 'product') {
-    let product = parseFloat(computeProduct(integer));
-    console.log(`The product of the integers between 1 and ${integer} is ${product}`);
+    let product = (computeProduct(integer).toFixed(2));
+    console.log(`\nThe product of the integers between 1 and ${integer} is ${product}\n`);
   } else {
-    prompt("That's not a valid choice");
+    // (chooseOperation !== OPERATION_CHOICES.includes());
+    console.log("That's not a valid choice");
+    break;
   }
+
+  // while (!OPERATION_CHOICES.includes(chooseOperation)) {
+  //   prompt("That's not a valid input, please enter again");
+  //   chooseOperation = READLINE.question();
+  //}
 
   prompt('Would you like to calculate the sum or product of another integer? (y/n)');
   let startOver = READLINE.question();
@@ -124,11 +145,9 @@ while (true) {
     console.clear();
     continue;
   } else if (startOver.toLowerCase() === 'n' || startOver.toLowerCase() === 'no') {
+    console.clear();
     console.log("\nThank you for using the Sum or Product Calculator. See you next time!");
-    console.log("\nCreated by Brianna Howell, in February 2022.\nModified on April 4, 2022\n");
+    console.log("\nCreated by Brianna Howell, in February 2022.\nModified on April 5, 2022\n");
     break;
-  } else {
-    prompt("That's not a valid choice");
-    startOver = READLINE.question();
   }
 }
